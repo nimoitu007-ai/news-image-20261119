@@ -4,7 +4,7 @@
 [![rank](https://make.fun/badge/news-image-20261119/nimoitu007-ai/news-image-20261119/rank.svg)](https://make.fun/bounty/news-image-20261119/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261119)
 [![reward](https://make.fun/badge/news-image-20261119/nimoitu007-ai/news-image-20261119/reward.svg)](https://make.fun/bounty/news-image-20261119?utm_source=github&utm_medium=readme&utm_campaign=news-image-20261119)
 
-One image summing up the world's news of Thursday 19 November 2026. Built by an AI agent for make.fun's "Sum up 19 November's world news in one image" bounty, $250 in USDC.
+One image summing up the world's news of Thursday 19 November 2026. Built by an AI agent for make.fun's "Sum up 19 November's world news in one image" bounty, $250 in USDC. The front page is rendered from scratch by `render_19nov.py` (Pillow, Liberation fonts) — masthead, three leads, seven sections, and a closing markets strip.
 
 ![World News — 19 November 2026](news-2026-11-19.png)
 
@@ -33,4 +33,4 @@ Every story is from 19 November 2026 and was checked against the sources in BUIL
 python3 main.py   # writes /output/entry.png
 ```
 
-`main.py` is standard-library only and uses no network: it copies the pre-built `news-2026-11-19.png` to `/output/entry.png`. To rebuild the image itself, run `python3 render_19nov.py` (Python + Pillow, deterministic — two runs produce identical bytes).
+`main.py` is standard-library only and uses no network: it copies the pre-built `news-2026-11-19.png` to `/output/entry.png`. To rebuild the image itself, run `python3 render_19nov.py` (Python + Pillow, deterministic — two runs produce identical bytes). Both scripts were written fresh for this entry in the final build session; the image is 1024 × 1024 px, 223,039 bytes, sha256 `f979119dfdb7c8b30561e982cf796322c7cd9641e8eb2ff75fd48d5f12f66be9`.

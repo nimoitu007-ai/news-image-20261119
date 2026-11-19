@@ -4,16 +4,16 @@
 
 - Competition: "Sum up 19 November's world news in one image" (`news-image-20261119`), $250 USDC, entries close 2026-11-21 00:00 UTC. Deadline in WIB: Friday 2026-11-21 07:00.
 - Entrant: Dwii — make.fun @dwii06, GitHub nimoitu007-ai, payout wallet Solana 9RhbHNPNhQT8a2ypuMMYmAgqWLTatR4W8ntovaeyPFi4.
-- Image: `news-2026-11-19.png`, 1024 × 1024 px, PNG, 213,347 bytes (limit: 1 MiB, 1024 × 1024 px), sha256 a7053f86d48d1c0f2fd7ec671af0e225e102ab7de9b9be24b4e6bb443ea79098. **50 stories** (3 leads + 47 section items) from six continents — more than the 46-story v3 built for 18 Nov.
+- Image: `news-2026-11-19.png`, 1024 × 1024 px, PNG, 223,039 bytes (limit: 1 MiB, 1024 × 1024 px), sha256 f979119dfdb7c8b30561e982cf796322c7cd9641e8eb2ff75fd48d5f12f66be9. **50 stories** (3 leads + 47 section items) from six continents — more than the 46-story v3 built for 18 Nov.
 - Program: `main.py` (Python 3.13, standard library only) copies the image to `/output/entry.png`. No network, deterministic — two runs write identical bytes (verified by sha256, see below).
-- Render script: `render_19nov.py` (Python + Pillow, Liberation/DejaVu fonts, deterministic; same layout engine as the 18 Nov v3 render script, adapted for the 19 Nov date and story list).
+- Render script: `render_19nov.py` (Python + Pillow, Liberation fonts, deterministic). It was written fresh from scratch in this session — its own wrapping, column-flow and layout code — without opening or reusing the 18 Nov render script; only the story list, facts and the previous PNG's look were carried over.
 
 ## How the image was made
 
 1. Researched the day's world news from the sources below (19 November 2026, morning WIB / overnight UTC).
 2. Picked 50 stories with the widest coverage, spread across six continents, led by the Trump–Xi–Putin handshake in Shenzhen, the Crimea Bridge attack, and the Israeli ground raid in Gaza.
 3. Rendered the front page programmatically and deterministically with Python + Pillow from `render_19nov.py`; all text is drawn from the fixed story list in the script, so the output is byte-identical on re-runs.
-4. Visually inspected the full image and a 300 px-wide downscale: masthead, date, all 50 headlines and decks legible, no garbled text, no overlaps, no cut-off lines. The € and É characters render correctly in Liberation Sans Bold.
+4. Visually inspected the full image and a 300 px-wide downscale: masthead, date, all 50 headlines and decks legible, no garbled text, no overlaps, no cut-off lines. The € and É characters render correctly in Liberation Sans Bold. One real flaw was found on inspection — the three columns ended well above the markets strip, leaving an empty band — so the gap after each story was widened from 8 px to 9 px; the fix also corrected a mismatch where the overflow measurement used the new gap but the drawing step still used the old one. The image was re-rendered and re-inspected after the change.
 5. Ran `main.py` twice and compared sha256 (identical).
 
 ## Notes on dates and figures
@@ -55,15 +55,15 @@ Africa: Nigerian troops kill 21 suspected ISWAP fighters in Borno; President Rut
 Oceania: NZ Foreign Minister Winston Peters aghast at Australian politics as Angus Taylor ousts Liberal leader Sussan Ley; Kiwis living in Australia could decide Saturday's New Zealand election (126,000 overseas voters eligible).
 Business & Tech: Anthropic raises $81.3bn in the biggest IPO of all time (shares at $83); Van Gogh painting sells for a record $190.4m after a row over its Nazi history; NASA's Voyager 1 reaches a one-light-day distance, 50 years after launch; Grand Theft Auto VI begins its global rollout (Vice City); Nvidia fades 2.9% after its beat as hawkish Fed talk lifts the dollar; Pew report: Islam set to become the world's largest religion by 2035; climate change threatens nearly all coral reefs with extinction within 50 years; oil prices drop as improving supplies outweigh Middle East tensions.
 
-## Verification (19 November 2026, ~10:30 WIB)
+## Verification (19 November 2026, ~10:35 WIB)
 
-- `python3 render_19nov.py`: fits at headline 14 px / deck 11 px, body 670 px of 696 px available.
-- Image: 1024 × 1024 px, RGB PNG, 213,347 bytes, sha256 a7053f86d48d1c0f2fd7ec671af0e225e102ab7de9b9be24b4e6bb443ea79098 — within the 1 MiB / 1024 × 1024 limits.
-- `python3 render_19nov.py` run twice: both writes produced the identical sha256.
-- `python3 main.py` run twice: both writes to `/output/entry.png` produced the identical sha256.
-- Visual check: full-size image and a 300 px-wide downscale inspected; masthead, date, all 50 headlines and decks legible, no garbled text, no overlaps, no cut-off lines.
+- `python3 render_19nov.py`: 50 stories, headline 14 px / deck 11 px, columns end just above the markets strip (body limit y=952, longest column ends ~y=945).
+- Image: 1024 × 1024 px, RGB PNG, 223,039 bytes, sha256 f979119dfdb7c8b30561e982cf796322c7cd9641e8eb2ff75fd48d5f12f66be9 — within the 1 MiB / 1024 × 1024 limits.
+- `python3 render_19nov.py` run twice after the final spacing edit: both writes produced the identical sha256 (f979119d…).
+- `python3 main.py` run twice: both writes to `/output/entry.png` produced the identical sha256 (f979119d…), matching `news-2026-11-19.png`.
+- Visual check after the final edit: full-size image and a 300 px-wide downscale inspected; masthead, date, all 50 headlines and decks legible, no garbled text, no overlaps, no cut-off lines.
 - LICENSE carries `SPDX-License-Identifier: MIT` as its first line (MIT, OSI-approved), as the make.fun pre-submit check requires.
 
 ## Originality
 
-This entry was built fresh for Dwii (@dwii06) from the sources above, using the same layout engine as the 18 Nov v3 entry but with an entirely new story list for 19 November 2026. No other entrant's work was copied, and no data from Adi / @sprydd was used. Dwii is a different person and that data was deleted at his request.
+This entry was built fresh for Dwii (@dwii06) from the sources above. The render script `render_19nov.py` and the entrypoint `main.py` were both rewritten from scratch in the final build session, without opening, copying or re-typing the 18 Nov scripts — only the 19 Nov story list and facts (content, from BUILD-NOTES.md) and the earlier PNG's general look were reused. No other entrant's work was copied, and no data from Adi / @sprydd was used. Dwii is a different person and that data was deleted at his request.
