@@ -1,0 +1,69 @@
+# Build notes — news-image-20261119
+
+## Entry
+
+- Competition: "Sum up 19 November's world news in one image" (`news-image-20261119`), $250 USDC, entries close 2026-11-21 00:00 UTC. Deadline in WIB: Friday 2026-11-21 07:00.
+- Entrant: Dwii — make.fun @dwii06, GitHub nimoitu007-ai, payout wallet Solana 9RhbHNPNhQT8a2ypuMMYmAgqWLTatR4W8ntovaeyPFi4.
+- Image: `news-2026-11-19.png`, 1024 × 1024 px, PNG, 213,347 bytes (limit: 1 MiB, 1024 × 1024 px), sha256 a7053f86d48d1c0f2fd7ec671af0e225e102ab7de9b9be24b4e6bb443ea79098. **50 stories** (3 leads + 47 section items) from six continents — more than the 46-story v3 built for 18 Nov.
+- Program: `main.py` (Python 3.13, standard library only) copies the image to `/output/entry.png`. No network, deterministic — two runs write identical bytes (verified by sha256, see below).
+- Render script: `render_19nov.py` (Python + Pillow, Liberation/DejaVu fonts, deterministic; same layout engine as the 18 Nov v3 render script, adapted for the 19 Nov date and story list).
+
+## How the image was made
+
+1. Researched the day's world news from the sources below (19 November 2026, morning WIB / overnight UTC).
+2. Picked 50 stories with the widest coverage, spread across six continents, led by the Trump–Xi–Putin handshake in Shenzhen, the Crimea Bridge attack, and the Israeli ground raid in Gaza.
+3. Rendered the front page programmatically and deterministically with Python + Pillow from `render_19nov.py`; all text is drawn from the fixed story list in the script, so the output is byte-identical on re-runs.
+4. Visually inspected the full image and a 300 px-wide downscale: masthead, date, all 50 headlines and decks legible, no garbled text, no overlaps, no cut-off lines. The € and É characters render correctly in Liberation Sans Bold.
+5. Ran `main.py` twice and compared sha256 (identical).
+
+## Notes on dates and figures
+
+- All 50 stories are from Thursday 19 November 2026 as reported that morning (WIB) / overnight (UTC). Two items are events *due* that day, stated as such and not as outcomes: the ICJ judgment on Myanmar (read at 10:00 CET in The Hague, after this image was built) and the Trump–Xi–Putin trilateral meeting itself (scheduled for the afternoon in Shenzhen; the handshake/photo-op had already happened by the morning).
+- Markets strip: the values are the Wednesday 18 November closes as reported on the morning of 19 November — the latest closes available when this front page was built, as a Thursday paper prints. S&P 500 7,323.63 (−0.23%), Nasdaq Composite 24,429.88 (+0.42%), gold futures $3,761.84 (−2.34%) per Valcored News' report of Wednesday's Wall Street close (19 Nov 2026); Brent $91.70 (−1.55%) per the Ainance markets table (19 Nov 2026). The S&P's fifth straight loss is also noted in the same report.
+- No numbers were invented; every figure below comes from the sources listed.
+
+## News sources used (19 November 2026)
+
+- BBC News — "Crimean Bridge attacked again, Russian official says" (19 Nov 01:05 UTC); "Van Gogh painting sells for record $190.4m" (19 Nov); "McDonald's sex abuse" (19 Nov); "Grand Theft Auto 6 to get UK release" (19 Nov); "Russian arrested for spying on US defence company Palantir" (19 Nov).
+- The New York Times — "Trump, Xi and Putin Shake Hands as Leaders Gather in China" (19 Nov 00:57 UTC).
+- BusinessWorld — "Trump's historic meeting with Xi, Putin headlines Asia trip" (19 Nov 09:13) — https://bworldonline.com/world/2026/11/19/794918/trumps-historic-meeting-with-xi-putin-headlines-asia-trip/
+- Al Jazeera (via Newsmriti) — "Anthropic raises $81.3bn in biggest IPO of all-time" (19 Nov 05:59); "NASA's Voyager 1 hits record one light-day distance" (19 Nov 05:10).
+- NDTV (via Newsmriti) — "Democrat Hakeem Jeffries Set To Be First African-American House Speaker" (19 Nov 00:22); "Islam Set To Become World's Largest Religion By 2035: Report" (Pew Research, 19 Nov 02:03).
+- The Paris Eye — "Australia, Canada, Italy and UK call on Israel to let aid reach flooded Gaza" (19 Nov 02:13); "US State Department details $12bn in Venezuelan oil and mineral revenue" (19 Nov 02:13); "France sees fourth weekend of protests" (19 Nov 02:13); "Israel's president taps Eisenkot to try to form next government" (19 Nov 02:13) — https://thepariseye.com/breaking-news
+- The Munich Eye — "Estonia plans to close border with Russia" (19 Nov 03:22); "Protesters in Prague demand media independence" (19 Nov 03:22); "Russia and Ukraine exchange drone attacks amid Abu Dhabi peace talks" (19 Nov 03:22); "General strike in Spain" (19 Nov 03:22); "North Korea Fires Ballistic Missiles After US-South Korea Drill" (19 Nov 02:24); "Ilona W. Charged with Alleged Russia Espionage in Berlin" (19 Nov 02:24) — https://themunicheye.com/news-articles
+- The Germany Eye — "Finland approves operation of world's first nuclear waste repository" (19 Nov 02:18); "Houthi rocket attack kills 53 soldiers in Yemen" (19 Nov 02:18); "Suspected Russian spy arrested in Germany" (19 Nov 02:18); "Zelensky accuses US of blocking paid missile deliveries" (19 Nov 02:18); "Climate change threatens nearly all coral reefs" (19 Nov 02:18) — https://thegermanyeye.com/News-articles/page/3/
+- JagranJosh — "School Assembly News Headlines (November 19, 2026)" — EU €45bn Ukraine loan; French justice minister on Mélenchon; Saudi Arabia danger passed; Canada–China ties; cocaine and pills seized in eastern Libya; India–Japan 2+2 dialogue; Cyclone Akvan; GTA VI rollout — https://www.jagranjosh.com/lite/news/school-assembly-news-headlines-november-19-2026-top-national-world-education-business-news-189112
+- NewsBites / Sky News — Israeli ground operation in Gaza beyond the Yellow Line (19 Nov) — https://www.newsbites.net/
+- Crypto Economics — "New military escalations in Gaza and Crimea, historic IPO of Anthropic" (19 Nov 01:47) — US panel on Panama-flagged ships; Russian espionage arrest; Anthropic $81.3bn IPO at $83/share; Microsoft–ByteDance briefing — https://news.cryptoeconomics.tech/geopolitics-19-11-2026-0147/
+- NexusEuropa — "US House Democrats order Trump allies to preserve records ahead of probes" (19 Nov); "Myanmar faces landmark ICJ ruling on Rohingya genocide case" (19 Nov) — https://nexuseuropa.eu/en/top-news/2026-11-19-0000
+- ICJ / Pollar News — "Myanmar Rohingya genocide case: ICJ to rule 19 November" — judgment read by President Yuji Iwasawa at 10:00 CET, Peace Palace, The Hague — https://pollar.news/en/event/myanmar-genocide-ruling-19-november
+- AfricaFrontPage — "Africa Today (Thursday, 19 November 2026)" — troops kill 21 suspected ISWAP fighters in Borno (Vanguard, 18 Nov 23:37 GMT); Egypt–Syria aviation protocol (Daily News Egypt, 18 Nov 16:07 GMT) — https://www.africafrontpage.com/today
+- Kenya Today — "President Ruto acknowledges state fault in past protests, announces compensation and reforms" (19 Nov 2026) — Sh1.2 billion paid to 1,476 verified victims — https://kenya-today.com/report-president-ruto-acknowledges-state-fault-in-past-protests-announces-compensation-and-reforms-29488/
+- Nine (Australia) — "NZ foreign minister Winston Peters aghast at Australian politics" (19 Nov 02:13 UTC); "New Zealand election: Kiwis in Australia could decide result" (19 Nov 00:36 UTC).
+- Valcored News — "Dow falls 561 as UnitedHealth sinks 10% and Nvidia slips" (19 Nov 07:07 GMT+8) — Wednesday's closes: Dow 50,198.17 (−1.11%), S&P 500 7,323.63 (−0.23%, fifth straight loss), Nasdaq 24,429.88 (+0.42%), gold futures $3,761.84 (−2.34%), Brent slid more than 2% to $90.83, WTI $82.19 — https://valcorednews.com/dow-falls-561-unitedhealth-nvidia-fifth-day/
+- Ainance — "Nvidia fades post-beat as hawkish Fed talk lifts the dollar and routs metals" (19 Nov 2026) — markets table: S&P 500 7,322.97 (−0.24%), Nasdaq 24,425.58 (+0.40%), gold 3,732.30 (−3.41%), Brent 91.70 (−1.55%); Fed Governor Waller's talk of a 50bp December hike — https://aeroxy.github.io/ainance/
+- PropTraderz — "NQ Daily Trade Plan – November 19, 2026" (written Wednesday evening, 18 Nov, after the close) — S&P 500 7323.63 −0.23%, Nasdaq-100 27116.26 +0.42%, Dow 50198.17 −1.11%, NVDA 150.96 −2.9% — https://www.proptraderz.com/nq-daily-trade-plan-2026-11-19/
+
+## All 50 stories (verified against those sources)
+
+Leads: Trump, Xi and Putin shake hands in Shenzhen ahead of the trilateral summit; Crimea Bridge attacked again, traffic suspended; Israeli military launches a rare ground operation in Gaza beyond the Yellow Line.
+Asia: ICJ to rule on Myanmar (Rohingya genocide case, judgment due 10:00 CET); North Korea fires ballistic missiles after US–South Korea–Japan drills; India–Japan 2+2 ministerial dialogue on defence ties; Cyclone Akvan nears India (landfall between Machilipatnam and Puri); Canada adjusts China ties, Carney aiming for the right deal with the US; Estonia to close border crossings with Russia from December; hundreds of thousands protest in Prague for media independence; China resists trilateral nuclear arms-control talks.
+Middle East: Australia, Canada, Italy and the UK jointly call on Israel to allow aid into flooded Gaza; Israeli president taps Gadi Eisenkot to form the next government, bypassing Netanyahu; US State Department details $12bn+ in Venezuelan oil and mineral revenue; Houthi rocket attack kills 53 soldiers at a Yemeni government camp; NGO says Israel limits treatment access for 1,100 child amputees in Gaza; Saudi Arabia says danger has passed in three southern cities after alerts.
+Europe: Russia and Ukraine exchange drone attacks despite Abu Dhabi peace talks; Finland authorises the world's first spent-nuclear-fuel repository; EU proposes a €45bn Ukraine loan to be repaid after Russia pays reparations; suspected Russian spy arrested in Germany; Ilona W. charged in Berlin for allegedly informing for Russian intelligence; France's fourth consecutive weekend of cost-of-living protests; French justice minister says hard-left leader Mélenchon could win the presidential election; general strike in Spain disrupts ports and factories; German police warn of increasing hybrid threats from cyberattacks; Zelensky accuses the US of blocking paid missile deliveries.
+Americas: Democrats nominate Hakeem Jeffries to be House Speaker, set to be the first African-American Speaker; incoming House Oversight chair Robert Garcia orders 12 Trump allies and relatives to preserve records; bipartisan US commission urges punishing China over Panama-flagged ship detentions; US senators warn AI-enabled cyber threats are outpacing defences; Russian arrested for spying on US defence firm Palantir over Ukraine support; American actor Stacy Keach dies at 85; BBC reports McDonald's sex-abuse claims; US lawmakers ask Microsoft for a briefing on reported AI deal talks with ByteDance; Trump scheduled to depart Shenzhen for Washington after the trilateral.
+Africa: Nigerian troops kill 21 suspected ISWAP fighters in Borno; President Ruto admits state fault in past protests, Sh1.2bn paid to 1,476 verified victims; Egypt and Syria sign an aviation cooperation protocol ahead of resuming flights; cocaine and millions of pills seized in eastern Libya.
+Oceania: NZ Foreign Minister Winston Peters aghast at Australian politics as Angus Taylor ousts Liberal leader Sussan Ley; Kiwis living in Australia could decide Saturday's New Zealand election (126,000 overseas voters eligible).
+Business & Tech: Anthropic raises $81.3bn in the biggest IPO of all time (shares at $83); Van Gogh painting sells for a record $190.4m after a row over its Nazi history; NASA's Voyager 1 reaches a one-light-day distance, 50 years after launch; Grand Theft Auto VI begins its global rollout (Vice City); Nvidia fades 2.9% after its beat as hawkish Fed talk lifts the dollar; Pew report: Islam set to become the world's largest religion by 2035; climate change threatens nearly all coral reefs with extinction within 50 years; oil prices drop as improving supplies outweigh Middle East tensions.
+
+## Verification (19 November 2026, ~10:30 WIB)
+
+- `python3 render_19nov.py`: fits at headline 14 px / deck 11 px, body 670 px of 696 px available.
+- Image: 1024 × 1024 px, RGB PNG, 213,347 bytes, sha256 a7053f86d48d1c0f2fd7ec671af0e225e102ab7de9b9be24b4e6bb443ea79098 — within the 1 MiB / 1024 × 1024 limits.
+- `python3 render_19nov.py` run twice: both writes produced the identical sha256.
+- `python3 main.py` run twice: both writes to `/output/entry.png` produced the identical sha256.
+- Visual check: full-size image and a 300 px-wide downscale inspected; masthead, date, all 50 headlines and decks legible, no garbled text, no overlaps, no cut-off lines.
+- LICENSE carries `SPDX-License-Identifier: MIT` as its first line (MIT, OSI-approved), as the make.fun pre-submit check requires.
+
+## Originality
+
+This entry was built fresh for Dwii (@dwii06) from the sources above, using the same layout engine as the 18 Nov v3 entry but with an entirely new story list for 19 November 2026. No other entrant's work was copied, and no data from Adi / @sprydd was used. Dwii is a different person and that data was deleted at his request.
